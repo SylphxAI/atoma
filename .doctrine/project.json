@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/atoma",
+    "name": "SylphxAI Atoma",
+    "lifecycle": "incubating",
+    "layer": "foundation",
+    "summary": "TypeScript state-management library experiment centered on a framework-agnostic atom() and store() API.",
+    "goals": [
+      "Provide a minimal framework-agnostic state management core with atoms, stores, computed state, async state, streams, models, and families.",
+      "Keep the public package surface focused on src/index.ts, src/atom.ts, src/store.ts, and src/types.ts.",
+      "Stabilize the family API and TypeScript inference before production lifecycle promotion."
+    ],
+    "nonGoals": [
+      "Own application-specific state models or UI framework integrations until they are explicitly added.",
+      "Own downstream product behavior that consumes the package.",
+      "Own enterprise engineering doctrine, standards, or project manifest schema."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "atoma-core-package",
+        "description": "The framework-agnostic state management package source, public exports, package manifest, and tests."
+      },
+      {
+        "name": "atoma-state-api",
+        "description": "The atom(), store(), computed, async, stream, model, and family state semantics documented in README.md and implemented under src."
+      }
+    ],
+    "doesNotOwn": [
+      "Application-specific state models, UI framework adapters, or downstream product behavior.",
+      "Package registry administration or organization-wide package release policy.",
+      "Enterprise doctrine and manifest schema owned by SylphxAI/doctrine."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "documentation",
+        "name": "Package README",
+        "location": "README.md"
+      },
+      {
+        "type": "manifest",
+        "name": "Package manifest and scripts",
+        "location": "package.json"
+      },
+      {
+        "type": "api",
+        "name": "Public export entry",
+        "location": "src/index.ts"
+      },
+      {
+        "type": "api",
+        "name": "Atom implementation",
+        "location": "src/atom.ts"
+      },
+      {
+        "type": "api",
+        "name": "Store implementation",
+        "location": "src/store.ts"
+      },
+      {
+        "type": "api",
+        "name": "Public types",
+        "location": "src/types.ts"
+      },
+      {
+        "type": "test",
+        "name": "Store test suite",
+        "location": "src/store.spec.ts"
+      },
+      {
+        "type": "workflow",
+        "name": "Release workflow",
+        "location": ".github/workflows/release.yml"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "project manifest schema and engineering doctrine",
+        "direction": "peer-public"
+      },
+      {
+        "repo": "SylphxAI/.github",
+        "surface": "reusable release workflow",
+        "direction": "upstream-shared"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not add product-specific state models for a downstream application to this shared package.",
+      "Do not add framework-specific adapters without a documented package contract and boundary.",
+      "Do not fork doctrine standards into this repository."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "README.md",
+      "status": "present"
+    },
+    "catalog": {
+      "path": ".doctrine/project.json",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "docs/runbooks/",
+      "status": "planned"
+    },
+    "generatedReferences": {
+      "path": "memory-bank/",
+      "status": "present"
+    }
+  },
+  "delivery": {
+    "ciModel": "legacy-ci",
+    "requiredContexts": [],
+    "deployPath": "Main-branch Release workflow delegates to SylphxAI/.github reusable release workflow, but production promotion is blocked by recorded TypeScript/API instability.",
+    "productionProof": "npm run build, npm test, typecheck once added/enforced, successful release workflow, and package-registry readback for published versions.",
+    "recoveryClass": "forward-fix-only"
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "typescript-errors-recorded",
+        "description": "memory-bank/progress.md records widespread TypeScript errors from an incomplete atom family API refactor.",
+        "owner": "SylphxAI/atoma",
+        "target": "before production lifecycle promotion"
+      },
+      {
+        "id": "pr-validation-workflow-missing",
+        "description": "The repository has a main-branch release workflow, but no PR validation workflow or required context is recorded for build/test/typecheck.",
+        "owner": "SylphxAI/atoma",
+        "target": "central ADR-29 required-context rollout or repo-local package validation gate"
+      },
+      {
+        "id": "repository-metadata-drift",
+        "description": "package.json repository and issue URLs still point at github.com/sylphlab/atoma rather than SylphxAI/atoma.",
+        "owner": "SylphxAI/atoma",
+        "target": "next package metadata pass"
+      }
+    ]
+  }
+}
