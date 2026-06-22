@@ -5,6 +5,7 @@
     "name": "SylphxAI Atoma",
     "lifecycle": "incubating",
     "layer": "foundation",
+    "policyPool": "library-package",
     "summary": "TypeScript state-management library experiment centered on a framework-agnostic atom() and store() API.",
     "goals": [
       "Provide a minimal framework-agnostic state management core with atoms, stores, computed state, async state, streams, models, and families.",
@@ -117,6 +118,7 @@
   },
   "delivery": {
     "ciModel": "legacy-ci",
+    "deployable": false,
     "requiredContexts": [],
     "deployPath": "Main-branch Release workflow delegates to SylphxAI/.github reusable release workflow, but production promotion is blocked by recorded TypeScript/API instability.",
     "productionProof": "npm run build, npm test, typecheck once added/enforced, successful release workflow, and package-registry readback for published versions.",
