@@ -19,7 +19,8 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify",
     "test": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "lint:fix": "biome check --write ."
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,9 @@
   "description": "",
   "devDependencies": {
     "tsup": "^8.4.0",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.1"
+    "typescript": "^7.0.2",
+    "vitest": "^3.1.1",
+    "@biomejs/biome": "^2.3.12",
+    "@sylphx/biome-config": "^0.4.1"
   }
 }
